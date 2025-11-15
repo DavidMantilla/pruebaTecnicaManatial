@@ -17,6 +17,7 @@ let dataEvento = [
       registro: true,
       data: ["Nombre", "correo", "confirmacion", "tipoDoc", "numeroDoc"],
       pago: true,
+      monto: 20000,
     },
   },
   {
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const registro = evento.extendedProps.registro;
       const campos = evento.extendedProps.data;
       const pago = evento.extendedProps.pago;
-
+      const monto = evento.extendedProps.monto;
       console.log("Título:", titulo);
       console.log("Inicio:", inicio);
       console.log("Fin:", fin);
@@ -102,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (registro) {
         html += `<div id="container_registro" class="Container_registro">`;
         html += `<br><h3 style="text-align:center"> Regístrate</h3>`;
-        html += `<br><form class="form_registro" id="form_registro" onsubmit="Registro(event,${pago})">`;
+        html += `<br><form class="form_registro" id="form_registro" onsubmit='Registro(event,${pago?JSON.stringify({pago:pago,monto:monto}):JSON.stringify({pago:false})})'>`;
         campos.forEach((element) => {
           html += form[element] + "<br>";
         });
@@ -121,7 +122,7 @@ function Registro(event, pago) {
   let form = event.target;
   console.log(form["nombre"]);
 
-  if (!pago) {
+  if (!pago.pago) {
     document.getElementById(
       "container_registro"
     ).innerHTML = `<h3 style='color:#333; text-align:center'>Te has Registrado con exíto</h3> <br>
@@ -135,10 +136,15 @@ function Registro(event, pago) {
      </div>`;
   } else {
     let html = `<br><h3 style="text-align:center"> Realiza el Pago</h3>`;
-    html += `<br><form class="form_pago" id="form_pago" onsubmit="Pago(event)">`;
+    html += `<br><form class="form_pago" id="form_pago" onsubmit='Pago(event,${JSON.stringify({nombre:form["nombre"].value,correo:form["correo"].value,confirmacion:form["confirmacion"].value,tipoDoc:form["tipoDoc"].value,doc:form["doc"].value})})'>`;
     html += ` <label>Monto</label>
-  <input  class="input_pago" type="number" name="monto" required min="1">
-
+      <h3> ${pago.monto.toLocaleString("es-CO", {
+       style: "currency",
+       currency: "COP",
+     })} 
+     </h3>
+     <br><br>
+   <input  type="hidden" name="monto" value="${pago.monto}"/>
   <label>Método de pago</label>
   <select class="input_pago" id="metodo" required  onchange="metodoPago(this)">
     <option value="">Seleccione…</option>
@@ -209,7 +215,10 @@ function metodoPago(select) {
   }
 }
 
-function Pago(event) {
+function Pago(event, personalData) {
+
+  
+
   event.preventDefault();
   let form = event.target;
 
@@ -217,7 +226,19 @@ function Pago(event) {
   if (metodo == "efectivo") {
     document.getElementById(
       "container_registro"
-    ).innerHTML = `<h3 style='color:#333; text-align:center'>Te has Registrado con exíto</h3> <br> `;
+    ).innerHTML = `<h3 style='color:#333; text-align:center'>Te has Registrado con exíto</h3> <br> 
+    <br>
+    <div style="text-align:center;color:#555">
+    <p><b>Nombre:</b> ${personalData.nombre}</p>
+    <p><b>Correo: </b>${personalData.correo}</p>
+     <p><b>confirmacion: </b>${personalData.confirmacion}</p>
+     <p><b>Tipo Documento:</b> ${personalData.tipoDoc}</p>
+       <p><b>Documento:</b> ${personalData.doc}</p>
+       <p><b>Monto:</b> ${form["monto"].value}</p>
+       <br/>
+       <h3 style="color:#333; text-align:center">El pago en efectivo se realizará en recepcion o con tu lider .</h3>
+       </div>`;
+    return;
   }
 
   if (metodo == "tarjeta") {
@@ -252,7 +273,19 @@ function Pago(event) {
     setTimeout(() => {
       document.getElementById(
         "container_registro"
-      ).innerHTML = `<h3 style='color:#333; text-align:center'>Pago Realizado con exíto</h3> <br> `;
+      ).innerHTML = `<h3 style='color:#333; text-align:center'>Pago Realizado con exíto</h3> <br>
+      <br>
+      <div style="text-align:center;color:#555">
+      <p><b>Nombre:</b> ${personalData.nombre}</p>
+      <p><b>Correo: </b>${personalData.correo}</p>
+       <p><b>confirmacion: </b>${personalData.confirmacion}</p>
+       <p><b>Tipo Documento:</b> ${personalData.tipoDoc}</p>
+         <p><b>Documento:</b> ${personalData.doc}</p>
+         <p><b>Monto:</b> ${form["monto"].value}</p>
+          <p><b>numero Tarjeta:</b> ${campos[0].value}</p>
+          <p><b>fecha:</b> ${campos[1].value}</p>
+          <p><b>cvc:</b> ${campos[2].value}</p>
+         </div> <br/>`;
     }, 800);
   }
 
@@ -265,7 +298,17 @@ function Pago(event) {
     setTimeout(() => {
       document.getElementById(
         "container_registro"
-      ).innerHTML = `<h3 style='color:#333; text-align:center'>redirigiendo...</h3> <br> `;
+      ).innerHTML = `<h3 style='color:#333; text-align:center'>redirigiendo...</h3> <br>
+      <br>
+      <div style="text-align:center;color:#555">
+      <p><b>Nombre:</b> ${personalData.nombre}</p>
+      <p><b>Correo: </b>${personalData.correo}</p>
+       <p><b>confirmacion: </b>${personalData.confirmacion}</p>
+       <p><b>Tipo Documento:</b> ${personalData.tipoDoc}</p>
+         <p><b>Documento:</b> ${personalData.doc}</p>
+          <p><b>Banco:</b> ${banco}</p>
+          <p><b>Monto:</b> ${form["monto"].value}</p>
+         </div> <br/>`;
     }, 800);
   }
 
