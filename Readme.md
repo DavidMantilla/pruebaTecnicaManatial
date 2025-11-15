@@ -104,3 +104,52 @@ Incluye:
 - Navegador moderno.
 - Conexión a internet para cargar FullCalendar vía CDN.
 
+ Validación y Pruebas del Formulario
+
+La lógica del formulario fue probada revisando tres puntos clave:
+
+### **1️⃣ Validación de campos visibles según el método de pago**
+Cada método muestra únicamente sus campos cuando corresponde (`tarjeta` o `PSE`).  
+Se comprobó:
+
+- Cambio dinámico de campos al seleccionar un método.  
+- Bloqueo del envío si hay campos vacíos.  
+- Validación mínima:  
+  - Tarjeta → 16 dígitos.  
+  - Fecha → formato `MM/YY`.  
+  - CVC → mínimo 3 dígitos.  
+  - PSE → banco seleccionado.  
+
+### **2️⃣ Revisión de eventos del formulario**
+Se verificó que:
+
+- El evento `submit` detiene el envío con `preventDefault()`.  
+- Los bloqueos funcionan al faltar información.  
+- El flujo continúa solo con datos completos.  
+
+### **3️⃣ Simulación de llegada y procesamiento de datos**
+Se usó `setTimeout()` para simular la respuesta del servidor y validar el flujo:
+
+- El mensaje **“Procesando el pago…”** aparece primero.  
+- Luego se muestra **“Registro exitoso”**.  
+- Los datos llegan correctamente y se procesan sin error.  
+
+Ejemplo del flujo probado:
+
+```js
+document.getElementById("formPago").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  // Validaciones...
+
+  console.log("Datos enviados:", {
+    nombre,
+    email,
+    monto,
+    metodo
+  });
+
+  setTimeout(() => {
+    console.log("Respuesta recibida correctamente.");
+  }, 800);
+});

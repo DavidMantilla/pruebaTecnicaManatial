@@ -15,7 +15,7 @@ let dataEvento = [
     end: "2025-10-07T23:59",
     extendedProps: {
       registro: true,
-      data: ["Nombre", "correo", "tipoDoc", "numeroDoc"],
+      data: ["Nombre", "correo", "confirmacion", "tipoDoc", "numeroDoc"],
       pago: true,
     },
   },
@@ -25,7 +25,7 @@ let dataEvento = [
     end: "2025-10-25T16:00",
     extendedProps: {
       registro: true,
-      data: ["Nombre", "correo", "tipoDoc", "numeroDoc"],
+      data: ["Nombre", "correo", "confirmacion", "tipoDoc", "numeroDoc"],
       pago: false,
     },
   },
@@ -34,6 +34,10 @@ let dataEvento = [
 let form = {
   Nombre: `<label>Nombre:</label><input type="text" id="nombre" class="registro_input" name="nombre">`,
   correo: `<label>Correo:</label><input type="email" id="correo" class="registro_input" name="Correo">`,
+  confirmacion: `<label>Asistiras al evento:</label> <select class="registro_input" name="confirmacion" id="confirmacion">
+            <option value="si">Si Asistire </option>
+            <option value="no">No puedo asistir </option>
+             </select>`,
   tipoDoc: `<label>Tipo Documento:</label><select class="registro_input" name="tipoDoc" id="tipoDoc">
             <option value="CC">Cedula de Ciudadania  </option>
             <option value="TI">Tarjeta de identidad  </option>
@@ -125,6 +129,7 @@ function Registro(event, pago) {
   <div style="text-align:center;color:#555">
   <p><b>Nombre:</b> ${form["nombre"].value}</p>
   <p><b>Correo: </b>${form["correo"].value}</p>
+   <p><b>confirmacion: </b>${form["confirmacion"].value}</p>
    <p><b>Tipo Documento:</b> ${form["tipoDoc"].value}</p>
      <p><b>Documento:</b> ${form["doc"].value}</p>
      </div>`;
