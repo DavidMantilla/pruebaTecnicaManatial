@@ -1,0 +1,110 @@
+* {
+  margin: 0px;
+}
+
+body {
+  background-color: #1b1b1b;
+  color: #fff;
+  font-family: sans-serif;
+}
+
+body > .EventosContainer {
+}
+
+body > .EventosContainer > .Banner {
+  height: 110vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(#0c0c0c40 30%, #1b1b1b 90%),
+    url("../imagen/1739891034_PC-EVENTOS.png");
+
+  background-position: top;
+  background-size: 120%;
+}
+
+body > .EventosContainer > .Banner > .banner_title {
+  font-weight: bolder;
+  font-size: 80px;
+}
+body > .EventosContainer > .Banner > p {
+  margin-top: 50px;
+  margin-bottom: 300px;
+  font-style: italic;
+}
+
+
+body > .EventosContainer>.calendar{
+    margin:20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    gap:30px
+}
+
+
+body > .EventosContainer>.calendar>.card-container{
+    text-align: center;
+   
+    padding: 20px;
+    margin: auto;
+    width: 100%;
+    min-height: 450px;
+
+}
+
+.calendar>.card-container>.card{
+
+    background: #fff;
+    min-height: 450px;
+    max-width: 400px;
+    margin: auto;
+    border-radius: 30px;
+}
+
+.card-container>.card>.card-body{
+  padding: 20px;
+  color: black !important;
+  text-align: left;
+}
+.card-container>.card>.card-body>#container_registro{
+  margin-top: 20px;
+}
+
+.card-container>.card>.card-body>#container_registro>.form_registro,
+.card-container>.card>.card-body>#container_registro>.form_pago, #container_registro>.form_pago>.box{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+ 
+}
+
+
+.card-body>#container_registro>.form_registro>.registro_input, 
+.card-body>#container_registro>.form_pago>.input_pago,
+#container_registro>.form_pago>.box>.input_pago{
+
+ 
+  padding: 10px;
+  background-color: #dfdfdf;
+  border: none;
+  border-radius: 20px;
+
+
+}
+
+
+.card-body>#container_registro>.form_registro>.button_registro,
+.card-body>#container_registro>.form_pago>.button_pago{
+
+  border: none;
+  background-color: #1b1b1b;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 20px;
+  color: #fff;
+}

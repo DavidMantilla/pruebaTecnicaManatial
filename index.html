@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="./assets/css/main.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+  </head>
+  <body>
+    <div class="EventosContainer" style="margin: 25px">
+      <section class="Banner">
+        <h1 class="banner_title">EVENTOS</h1>
+        <br />
+        <p>
+          Ven y acompáñanos, abre tu corazón y deja que la Palabra de Dios te
+          transforme.
+        </p>
+      </section>
+
+      <section
+        class="info"
+        style="width: 100%; text-align: center; margin: 40px"
+      >
+        <h1>PROXIMOS EVENTOS</h1>
+      </section>
+      <section class="calendar">
+          <div class="card-container" style="width: 45%">
+          <div class="card" id="card" style="display: none;">
+            <img
+              src="assets/imagen/ImageRef.png"
+              style="width: 100%; object-fit: cover"
+              alt=""
+            />
+            <div class="card-body" id="cardBody"></div>
+          </div>
+        </div>
+
+        <div class="containerCalendar"  style="width: 55%">
+          <div id="calendar" style="width: 100%"></div>
+        </div>
+      
+      </section>
+    </div>
+  </body>
+</html>
